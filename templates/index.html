@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UFC Fight Outcome Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header class="header">
+    <div class="left-logo">
+        <img src="static/images/inverted_ufc_logo.jpg" alt="Logo" class="left-image">
+    </div>
+    <div class="title">
+        <h1>UFC Fight Predictor</h1>
+    </div>
+    <div class="right-link">
+        <a href="#" id="about-link">About the model</a>
+    </div>
+</header>
+
+<div class="popup" id="popup">
+    <div class="popup-content">
+
+        <p>The predictive model is constructed upon a sophisticated framework that incorporates a diverse array of fighter statistics and fight-specific metrics extracted from meticulously curated datasets. These datasets encompass intricate details such as fighter demographics (including age, height, and weight), historical performance indicators (wins, losses), as well as more nuanced factors like reach and combat techniques proficiency. Additionally, fight-specific statistics are meticulously documented, encompassing granular details such as punches thrown, landed, and other performance metrics characteristic of each fighter.</p>
+
+        <p>Employing advanced analytical techniques, the model extrapolates patterns and trends from this multifaceted dataset to formulate predictions regarding the outcomes of matchups between two fighters. Through rigorous statistical analysis and machine learning algorithms, the model endeavors to discern underlying patterns in fighter performance and fight dynamics, ultimately yielding predictive insights into potential fight outcomes.</p>
+
+        <p style="color: red;">It's paramount to emphasize that while the model offers valuable insights into fight prediction, its application should be strictly limited to research and analytical purposes. Caution must be exercised in refraining from utilizing the model as a basis for sports betting or similar activities. The primary objective of the project is to provide a robust analytical tool for understanding fight dynamics and predicting outcomes based on empirical data and statistical analysis.</p>
+
+    </div>
+</div>
+
+<script>
+    // Get the elements
+    const aboutLink = document.getElementById('about-link');
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('close-popup');
+
+    // Function to open the popup
+    function openPopup() {
+        popup.style.display = 'block';
+        // Smooth fade-in animation
+        popup.querySelector('.popup-content').style.opacity = 1; // Change opacity to 1
+    }
+
+    // Function to close the popup
+    function closePopupFunction() {
+        popup.querySelector('.popup-content').style.opacity = 0; // Change opacity to 0
+        // Delay the removal of the popup to match the transition duration
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500);
+    }
+
+    // Close the popup when clicking outside of it
+    window.addEventListener('click', function(event) {
+        if (event.target == popup) {
+            closePopupFunction();
+        }
+    });
+
+    // Event listener for the about link
+    aboutLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        openPopup();
+    });
+
+    // Event listener for the close button
+    closePopup.addEventListener('click', function() {
+        closePopupFunction();
+    });
+</script>
+
+    <div class="video-background" style="background-image: url('static/images/wallpaperufc.jpg');">
+        <div class="fight-graph">
+            <div class="form-container">
+                <form method="post">
+                    <label for="fighter1">SELECT FIGHTER 1</label>
+                    <input type="text" id="fighter1" name="fighter1" list="fighterList">
+                    <label for="fighter2">SELECT FIGHTER 2</label>
+                    <input type="text" id="fighter2" name="fighter2" list="fighterList">
+
+                    <datalist id="fighterList">
+                        {% for fighter in fighters %}
+                        <option value="{{ fighter }}">
+                        {% endfor %}
+                    </datalist>
+
+                    <button type="submit">PREDICT</button>
+                </form>
+            </div>
+            <div class = "prob">
+                <canvas id="winProbabilityChart"></canvas>
+            </div>
+                <script>
+                    {%if pred1 and pred2 %}
+                    var fighterNames = [{{ fighter1|tojson }}, {{ fighter2|tojson }}]; // Update these variables based on your form data or outcome
+                    var winProbabilities = [{{ pred1 }}, {{ pred2 }}];
+                    console.log(fighterNames)
+                    {% else %}
+                    var fighterNames = ['Fighter 1', 'Fighter 2'];
+                    var winProbabilities = [50, 50];
+                    console.log(fighterNames)// Default or placeholder values
+                    {% endif %}
+
+                    var ctx = document.getElementById('winProbabilityChart').getContext('2d');
+                    var winProbabilityChart = new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                        labels: fighterNames,
+                        datasets: [{
+                          label: 'Win Probability',
+                          data: winProbabilities,
+                          backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)'
+                          ],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                            suggestedMax: 100 // Assuming probabilities are percentages
+                          }
+                        },
+                        animation: {
+                          duration: 2000, // Animation duration for the chart
+                        }
+                      }
+                    });
+                </script>
+        </div>
+        {% if outcome %}
+        <!-- New section for displaying the outcome -->
+        <div id="outcomeLabel" style="opacity: 0; transition: opacity 2s;">
+            <h2>Prediction Outcome:</h2>
+            <p>{{ outcome }}</p>
+        </div>
+        <script>
+            // Fade in the outcome label
+            window.addEventListener('load', () => {
+                const outcomeLabel = document.getElementById('outcomeLabel');
+                if (outcomeLabel) {
+                    setTimeout(() => {
+                        outcomeLabel.style.opacity = 1;
+                    }, 250); // Delay before starting the animation
+                }
+            });
+        </script>
+        {% endif %}
+    </div>
+<footer>
+    <p>Copyright &#169; 2024 Rohan Nair. All Rights Reserved.</p>
+</footer>
+</body>
+</html>
+
+

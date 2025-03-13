@@ -1,0 +1,215 @@
+/* Apply a universal box-sizing rule */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* Set the font and background for the entire body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Existing header styles */
+.header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 10px; /* Increased top and bottom padding */
+            background-color: black; /* Set header background to black */
+            color: white; /* Set text color to white */
+            height: 100px; /* Increased header height */
+        }
+
+        /* New styles for right link */
+        .right-link {
+            margin-left: auto;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            z-index: 9999; /* Ensure popup appears on top of other content */
+        }
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black; /* Set background color to black */
+    color: white; /* Set text color to white */
+    padding: 20px;
+    border-radius: 5px;
+    opacity: 0; /* Start with opacity 0 */
+    transition: opacity 0.5s, transform 0.5s; /* Smooth transition for opacity and transform */
+    line-height: 1.5; /* Increase line spacing */
+}
+
+.left-logo {
+    margin-right: 20px;
+}
+
+.left-image {
+    height: 80px; /* Increased logo height */
+    width: auto; /* Allow the width to adjust proportionally */
+    max-width: 200px; /* Set a maximum width for the logo */
+}
+
+.title {
+    flex: 1; /* Take up remaining space */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.title h1 {
+    font-size: 36px; /* Increased font size */
+    margin: 0;
+    text-transform: uppercase; /* Transform text to uppercase */
+    letter-spacing: 2px; /* Add letter spacing for a stylish look */
+    font-family: Arial, sans-serif; /* Use a sans-serif font */
+}
+
+
+footer {
+  height: 4vh;
+  margin: 0 1rem;
+  background: black;
+}
+
+footer p {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+
+/* Style the heading */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #E0E0E0;
+  margin: 20px 0;
+}
+.fight-graph {
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.video-background {
+  position: relative;
+  width: 100%;
+  height: 85vh; /* Adjust height as needed */
+}
+
+
+.form-container {
+  position: relative;
+  z-index: 1;
+  right: auto; /* Your existing form styles */
+  width: 800px;
+}
+/* Style the form */
+form {
+  max-width: 600px;
+  margin: 90px 90px;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/*form, #winProbabilityChart {
+    width: 50%; Adjust the width as necessary
+}*/
+/* Style the labels */
+
+.prob {
+  position: relative;
+  z-index:1;
+  left: auto;
+  width: 800px;
+}
+
+#winProbabilityChart {
+  display: block;
+  box-sizing: border-box;
+  height: 298px;
+  width: 518px;
+  max-width: 800px;
+  margin: 90px auto;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+/* Style the text input fields for fighter selection */
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #111;
+  color: #fff;
+  font-size: 1em;
+}
+
+/* Change the input focus style */
+input[type="text"]:focus {
+  outline: none;
+  border-color: #f0131e;
+}
+
+/* Style the button */
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: #f0131e; /* UFC brand color for buttons */
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #ff4747;
+}
+
+/* Outcome label styling */
+#outcomeLabel {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #202020; /* Slightly lighter black for the outcome box */
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* Add some space at the bottom of the page */
+body::after {
+  content: "";
+  display: block;
+  height: 20px;
+}
+
